@@ -1,0 +1,35 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+  # * is a special character in YAML so you have to quote this string
+  # Execute a "nightly" build at 2 AM UTC 
+  - cron:  '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: '[@{{ matrix.os }}]'
+    runs-on: ${{ matrix.os }}
+  
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-10.15, macos-11.0, macos-latest]
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a set of commands using the runners shell
+      - name: Upgrade Homebrew
+        run: |
+          brew update
+          brew upgrade
