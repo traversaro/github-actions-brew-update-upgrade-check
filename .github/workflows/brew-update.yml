@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-11.0, macos-12.0, macos-latest]
+        os: [macOS-11.0, macOS-12.0, macOS-latest]
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
